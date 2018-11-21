@@ -9,8 +9,12 @@ namespace CrudUsuario.Domain.Interfaces.Repositories
     {
         Task CreateAsync(Usuario usuario);
 
-        Task<UsuarioDTO> GetAsync(int id);
+        Task<Usuario> GetAsync(int id);
 
         Task<IEnumerable<UsuarioDTO>> GetAllAsync();
+
+        Task UpdateAsync(Usuario usuario);
+
+        Task DeleteAsync(Usuario usuario);
     }
 }

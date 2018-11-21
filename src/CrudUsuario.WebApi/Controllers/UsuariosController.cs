@@ -1,9 +1,5 @@
-﻿using CrudUsuario.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using CrudUsuario.Domain.Entities;
+using CrudUsuario.Domain.Interfaces.Services;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -16,32 +12,59 @@ namespace CrudUsuario.WebApi.Controllers
         public UsuariosController(IUsuarioService usuarioService) 
             => _usuarioService = usuarioService;
         // GET: api/Usuarios
-        public IEnumerable<string> Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var usuarios = await _usuarioService.GetAsync();
+
+            return Ok(usuarios);
         }
 
         // GET: api/Usuarios/5
         public async Task<IHttpActionResult> GetAsync(int id)
         {
             var usuario = await _usuarioService.GetByIdAsync(id);
+            
+            if(usuario == null) return NotFound();
 
             return Ok(usuario);
         }
 
         // POST: api/Usuarios
-        public void Post([FromBody]string value)
+        public async Task<IHttpActionResult> PostAsync([FromBody]Usuario usuario)
         {
+            await _usuarioService.CreateUserAsync(usuario);
+
+            return Ok(usuario);
         }
 
         // PUT: api/Usuarios/5
-        public void Put(int id, [FromBody]string value)
+        public async Task<IHttpActionResult> Put(int id, [FromBody]Usuario usuario)
         {
+            var objUsuario = await _usuarioService.GetByIdAsync(id);
+
+            if (objUsuario == null) return NotFound();
+
+            objUsuario.Nome = usuario.Nome;
+            objUsuario.CPF = usuario.CPF;
+            objUsuario.Email = usuario.Email;
+            objUsuario.DataNascimento = usuario.DataNascimento;
+            objUsuario.Sexo = usuario.Sexo;
+
+            await _usuarioService.UpdateAsync(objUsuario);
+
+            return Ok();
         }
 
         // DELETE: api/Usuarios/5
-        public void Delete(int id)
+        public async Task<IHttpActionResult> DeleteAsync(int id)
         {
+            var usuario = await _usuarioService.GetByIdAsync(id);
+
+            if (usuario == null) return NotFound();
+
+            await _usuarioService.DeleteAsync(usuario);
+
+            return Ok();
         }
     }
 }

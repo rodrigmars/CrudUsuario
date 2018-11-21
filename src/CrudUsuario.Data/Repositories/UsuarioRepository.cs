@@ -19,7 +19,7 @@ namespace CrudUsuario.Data.Repositories
             await AddAsync(usuario, query);
         }
 
-        public async Task<UsuarioDTO> GetAsync(int id)
+        public async Task<Usuario> GetAsync(int id)
         {
             var query = @"SELECT U.ID AS USUARIOID
                         ,U.NOME 
@@ -30,15 +30,7 @@ namespace CrudUsuario.Data.Repositories
                         FROM USUARIO AS U WITH (NOLOCK) WHERE U.ID = @ID";
 
 
-            var usuario = await GetAsync(id, query);
-
-            return new UsuarioDTO
-            {
-                UsuarioId = usuario.Id,
-                Nome = usuario.Nome,
-                CPF = usuario.CPF,
-                Email = usuario.Email,
-            };
+            return await GetAsync(id, query);
         }
 
         public async Task<IEnumerable<UsuarioDTO>> GetAllAsync()
@@ -61,6 +53,25 @@ namespace CrudUsuario.Data.Repositories
             }
 
             return lista;
+        }
+
+        public async Task UpdateAsync(Usuario usuario)
+        {
+            var query = @"UPDATE USUARIO 
+                        SET NOME = @NAME 
+                        ,CPF = @CPF 
+                        ,EMAIL = @EMAIL
+                        ,SEXO = @SEXO
+                        ,DATANASCIMENTO= @DATANASCIMENTO WHERE ID = @ID";
+
+            await UpdateAsync(usuario, query);
+        }
+
+        public async Task DeleteAsync(Usuario usuario)
+        {
+            var query = @"DELETE FROM USUARIO WHERE ID = @ID";
+
+            await DeleteAsync(usuario, query);
         }
     }
 }
