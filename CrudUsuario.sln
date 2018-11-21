@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntryPoint", "EntryPoint", "{B92D4F4D-9066-4B85-A3C9-302A975F9814}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0C154622-1909-4711-A192-41C5E0135E10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{B849D8F6-0477-4B6F-98B7-EF43C8CC8A4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudUsuario.WebApi", "src\CrudUsuario.WebApi\CrudUsuario.WebApi.csproj", "{A46AEB78-6E14-4F82-B0A5-219C5AE0348C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A46AEB78-6E14-4F82-B0A5-219C5AE0348C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A46AEB78-6E14-4F82-B0A5-219C5AE0348C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A46AEB78-6E14-4F82-B0A5-219C5AE0348C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A46AEB78-6E14-4F82-B0A5-219C5AE0348C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A46AEB78-6E14-4F82-B0A5-219C5AE0348C} = {B92D4F4D-9066-4B85-A3C9-302A975F9814}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBC78D92-6BC7-4718-A0F5-A7918D0098B4}
+	EndGlobalSection
+EndGlobal
