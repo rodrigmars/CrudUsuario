@@ -17,7 +17,12 @@ namespace CrudUsuario.Domain.Services
             => await _unitOfWork.UsuarioRepository.CreateAsync(usuario);
 
         public async Task<Usuario> GetByIdAsync(int id)
-            => await _unitOfWork.UsuarioRepository.GetAsync(id);
+        {
+            _unitOfWork.OpenAsync();
+
+            return await _unitOfWork.UsuarioRepository.GetAsync(id);
+        }
+
 
         public async Task<IEnumerable<UsuarioDTO>> GetAsync()
             => await _unitOfWork.UsuarioRepository.GetAllAsync();

@@ -40,17 +40,17 @@ namespace CrudUsuario.WebApi.Controllers
         // PUT: api/Usuarios/5
         public async Task<IHttpActionResult> Put(int id, [FromBody]Usuario usuario)
         {
-            var objUsuario = await _usuarioService.GetByIdAsync(id);
+            var usuario_ = await _usuarioService.GetByIdAsync(id);
 
-            if (objUsuario == null) return NotFound();
+            if (usuario_ == null) return NotFound();
 
-            objUsuario.Nome = usuario.Nome;
-            objUsuario.CPF = usuario.CPF;
-            objUsuario.Email = usuario.Email;
-            objUsuario.DataNascimento = usuario.DataNascimento;
-            objUsuario.Sexo = usuario.Sexo;
+            usuario_.Nome = usuario.Nome;
+            usuario_.CPF = usuario.CPF;
+            usuario_.Email = usuario.Email;
+            usuario_.DataNascimento = usuario.DataNascimento;
+            usuario_.Sexo = usuario.Sexo;
 
-            await _usuarioService.UpdateAsync(objUsuario);
+            await _usuarioService.UpdateAsync(usuario_);
 
             return Ok();
         }

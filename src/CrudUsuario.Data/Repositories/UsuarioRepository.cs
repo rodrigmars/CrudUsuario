@@ -28,7 +28,6 @@ namespace CrudUsuario.Data.Repositories
                         ,U.DATANASCIMENTO 
                         FROM USUARIO AS U WITH (NOLOCK) WHERE U.ID = @ID";
 
-
             return await GetAsync(id, query);
         }
 
@@ -62,16 +61,8 @@ namespace CrudUsuario.Data.Repositories
                         ,EMAIL = @EMAIL
                         ,SEXO = @SEXO
                         ,DATANASCIMENTO = @DATANASCIMENTO WHERE ID = @ID";
-            try
-            {
-                await UpdateAsync(usuario, query);
-            }
-            catch (System.Exception ex)
-            {
 
-                throw;
-            }
-            
+            await UpdateAsync(usuario, query);
         }
 
         public async Task DeleteAsync(Usuario usuario)
