@@ -1,14 +1,20 @@
-﻿using System;
+﻿using CrudUsuario.Domain.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CrudUsuario.WebApi.Controllers
 {
     public class UsuariosController : ApiController
     {
+        private readonly IUsuarioService _usuarioService;
+
+        public UsuariosController(IUsuarioService usuarioService) 
+            => _usuarioService = usuarioService;
         // GET: api/Usuarios
         public IEnumerable<string> Get()
         {
@@ -16,9 +22,11 @@ namespace CrudUsuario.WebApi.Controllers
         }
 
         // GET: api/Usuarios/5
-        public string Get(int id)
+        public async Task<IHttpActionResult> GetAsync(int id)
         {
-            return "value";
+            var usuario = await _usuarioService.GetByIdAsync(id);
+
+            return Ok(usuario);
         }
 
         // POST: api/Usuarios

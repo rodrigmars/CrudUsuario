@@ -2,7 +2,18 @@
 
 namespace CrudUsuario.WebApi.App_Start
 {
+    using System.Configuration;
+    using System.Data;
+    using System.Data.SqlClient;
     using System.Web.Http;
+    using CrudUsuario.Data.DBContext;
+    using CrudUsuario.Data.Repositories;
+    using CrudUsuario.Data.UOW;
+    using CrudUsuario.Domain.Entities;
+    using CrudUsuario.Domain.Interfaces;
+    using CrudUsuario.Domain.Interfaces.Repositories;
+    using CrudUsuario.Domain.Interfaces.Services;
+    using CrudUsuario.Domain.Services;
     using SimpleInjector;
     using SimpleInjector.Integration.WebApi;
     using SimpleInjector.Lifestyles;
@@ -29,6 +40,18 @@ namespace CrudUsuario.WebApi.App_Start
         {
             // For instance:
             // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
+
+            var connection = ConfigurationManager.ConnectionStrings["CrudUsuarioDBString"];
+
+            container.RegisterInstance<IConnectionstring>(
+                new DbContextOptions(connection.ToString()));
+
+            container.Register<IDbConnection>(() => new SqlConnection(connection.ToString()), Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+
+            container.Register(typeof(IRepository<>), typeof(Repository<>).Assembly, Lifestyle.Scoped);
+            container.Register<IUsuarioRepository, UsuarioRepository>(Lifestyle.Scoped);
+            container.Register<IUsuarioService, UsuarioService>(Lifestyle.Scoped);
         }
     }
 }
