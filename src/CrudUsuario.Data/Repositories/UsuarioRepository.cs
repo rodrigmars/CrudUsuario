@@ -13,15 +13,14 @@ namespace CrudUsuario.Data.Repositories
 
         public async Task CreateAsync(Usuario usuario)
         {
-            var query = @"INSERT INTO USUARIO(NOME, SEXO, CPF, EMAIL, DATANASCIMENTO) 
-                        VALUES (@NOME, @SEXO, @CPF, @EMAIL, @DATANASCIMENTO)";
+            var query = @"INSERT INTO USUARIO(NOME, SEXO, CPF, EMAIL, DATANASCIMENTO) VALUES (@NOME, @SEXO, @CPF, @EMAIL, @DATANASCIMENTO)";
 
             await AddAsync(usuario, query);
         }
 
         public async Task<Usuario> GetAsync(int id)
         {
-            var query = @"SELECT U.ID AS USUARIOID
+            var query = @"SELECT U.ID
                         ,U.NOME 
                         ,U.SEXO
                         ,U.CPF
@@ -35,7 +34,7 @@ namespace CrudUsuario.Data.Repositories
 
         public async Task<IEnumerable<UsuarioDTO>> GetAllAsync()
         {
-            var query = @"SELECT U.ID AS USUARIOID, U.NOME, U.CPF, U.EMAIL FROM USUARIO AS U";
+            var query = @"SELECT U.ID, U.NOME, U.CPF, U.EMAIL FROM USUARIO AS U";
 
             var usuarios = await GetAllAsync(query);
 
@@ -58,13 +57,21 @@ namespace CrudUsuario.Data.Repositories
         public async Task UpdateAsync(Usuario usuario)
         {
             var query = @"UPDATE USUARIO 
-                        SET NOME = @NAME 
+                        SET NOME = @NOME 
                         ,CPF = @CPF 
                         ,EMAIL = @EMAIL
                         ,SEXO = @SEXO
-                        ,DATANASCIMENTO= @DATANASCIMENTO WHERE ID = @ID";
+                        ,DATANASCIMENTO = @DATANASCIMENTO WHERE ID = @ID";
+            try
+            {
+                await UpdateAsync(usuario, query);
+            }
+            catch (System.Exception ex)
+            {
 
-            await UpdateAsync(usuario, query);
+                throw;
+            }
+            
         }
 
         public async Task DeleteAsync(Usuario usuario)

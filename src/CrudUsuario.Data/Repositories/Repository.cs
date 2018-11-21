@@ -14,7 +14,7 @@ namespace CrudUsuario.Data.Repositories
             => _connection = connection;
 
         public async Task AddAsync(T entity, string query)
-            => await _connection.ExecuteAsync(query, new { entity });
+            => await _connection.ExecuteAsync(query, entity);
 
         public async Task<T> GetAsync(int id, string query)
             => await _connection.QueryFirstOrDefaultAsync<T>(query, new { id });
@@ -23,9 +23,9 @@ namespace CrudUsuario.Data.Repositories
             => await _connection.QueryAsync<T>(query);
 
         public async Task UpdateAsync(T entity, string query)
-            => await _connection.ExecuteAsync(query, new { entity });
+            => await _connection.ExecuteAsync(query, entity);
 
         public async Task DeleteAsync(T entity, string query)
-             => await _connection.ExecuteAsync(query, new { entity });
+             => await _connection.ExecuteAsync(query, entity);
     }
 }
